@@ -60,4 +60,33 @@
 3. The first post-fix 1280 × 720 capture exposed a P2 split header and automatic inspector takeover. Container queries and list-first navigation fixed both; `detail-responsive-comparison.png` and `gui-personal-community.png` are the post-fix evidence.
 4. Completed quick-create routing, list semantics, busy states, default light, default dark, Pink Sakura, interaction flow, and console state were rechecked after the final build. No actionable P0, P1, or P2 finding remains.
 
+## Composite input focus pass
+
+- Source visual truth: `docs/assets/focus-search-reference.png` and `docs/assets/focus-quick-add-reference.png`, privacy-safe crops normalized from the two user-provided screenshots.
+- Browser-rendered implementation: `docs/assets/focus-search-qa.png`, `docs/assets/focus-quick-add-qa.png`, and the full views `docs/assets/gui-light.png`, `docs/assets/gui-dark.png`, `docs/assets/gui-community.png`, plus `docs/assets/gui-focus-community.png` from the installed DSH GUI.
+- Runtime viewports: 1920 × 796 CSS px at DPR 1 in the installed DSH GUI (280 px DSH sidebar excluded from the 1640 × 796 plugin capture), plus 1280 × 720 CSS/pixel captures in the isolated DSH theme-check profile.
+- Search comparison: the 984 × 180 px source crop was normalized to 492 × 90 px; the implementation was captured at the same 492 × 90 CSS/pixel size.
+- Quick-add comparison: the 1882 × 200 px source crop was normalized to 941 × 100 px; the implementation was captured at the same 941 × 100 CSS/pixel size.
+- State: text input focused in official default light, official default dark, and Pink Sakura community skin; the installed community-skin profile was also checked with an empty Today view. The submit button was checked separately through keyboard Tab navigation.
+
+### Findings and fixes
+
+- **P2 — Composite inputs rendered two competing focus indicators.** The panel-wide `input:focus-visible` rule added an inner rectangular outline while the search container already changed its border; quick add showed the same inner line without a matching container state. Fixed by suppressing only the two nested input outlines and moving the visible two-pixel focus treatment to their composite containers.
+- **P3 — Focus transitions and caret did not explicitly follow the active skin.** Added token-driven border/shadow transitions and a semantic caret color; no fixed color or theme override was introduced.
+- **P3 — Disabled quick-add hover could still select the hover token.** Hover styling now applies only when the submit button is enabled.
+
+### Focus-pass verification
+
+- Full-view evidence: `gui-light.png`, `gui-dark.png`, `gui-community.png`, and `gui-focus-community.png` confirm the header, summary, quick add, content, and inspector stay aligned and consume one shared semantic focus color from the active DSH theme/skin.
+- Focused evidence: the equal-size source/implementation pairs show the reported inner cyan rectangle is gone; one continuous token-driven perimeter remains around the active composite.
+- Keyboard sequence: Tab moves from the quick-add input to its submit button; the container ring clears and the button retains its own visible focus outline.
+- Fonts and copy are unchanged; spacing, radii, icons, and current-color SVG rendering remain aligned with the existing DSH component language.
+- Final browser console warnings and errors: none.
+
+### Focus-pass comparison history
+
+1. The user screenshots exposed the P2 double-focus treatment in both search and quick add.
+2. The implementation moved focus emphasis to the composite containers, rebuilt the plugin, refreshed the installed DSH GUI, and captured equal-size focused regions.
+3. The post-fix comparison found no remaining actionable P0, P1, or P2 difference; only the intentional single outer focus indicator remains.
+
 final result: passed

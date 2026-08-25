@@ -29,6 +29,8 @@ describe('plugin contracts', () => {
     expect(css).toContain('var(--dsw-')
     expect(css).toContain('container-type: inline-size')
     expect(css).toContain('@container task-planner')
+    expect(css).toContain('.panel .search input:focus-visible, .panel .quickAdd input:focus-visible { outline: none; }')
+    expect(css).toContain('.quickAdd:has(input:focus)')
   })
 
   it('documents the runtime-only reminder boundary in both locales', () => {
