@@ -1,0 +1,5 @@
+# dsh-task-planner Cordis bundle row. The Host loads the package root and the
+# Web GUI loads the declared ./client face without any DSH source changes.
+- insert:
+    - id: ui-task-planner
+      name: dsh-task-planner

@@ -1,0 +1,9 @@
+tests/
+site/
+site-dist/
+.github/
+scripts/
+vitest.config.ts
+tsconfig.json
+tsconfig.build.json
+tsdown.config.ts

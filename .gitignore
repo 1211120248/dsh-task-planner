@@ -1,0 +1,12 @@
+node_modules/
+lib/
+site-dist/
+coverage/
+*.log
+.DS_Store
+*.tmp
+*.backup.json
+.env
+.env.*
+!.env.example
+.e2e-home/

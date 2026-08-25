@@ -1,0 +1,34 @@
+name: Bug report
+description: Report a reproducible problem without private task data.
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not attach task exports, credentials, local paths, or private screenshots.
+  - type: input
+    id: version
+    attributes:
+      label: Plugin version
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Minimal steps using sanitized data.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true

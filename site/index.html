@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="dsh-task-planner 是一个通过 Cordis Bundle 与官方 Client Slot 接入 DSH Web GUI 的本机轻量任务插件。">
+  <meta name="color-scheme" content="light dark">
+  <title>dsh-task-planner · DSH 日常任务计划</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="wordmark" href="#top" aria-label="dsh-task-planner 首页"><span aria-hidden="true">✓</span>dsh-task-planner</a>
+    <nav aria-label="主导航"><a href="#features">功能</a><a href="#ai">AI 管理</a><a href="#privacy">隐私</a><a href="#faq">FAQ</a></nav>
+    <button class="theme-toggle" type="button" aria-label="切换浅色和深色显示" aria-pressed="false"><span aria-hidden="true">◐</span><span class="theme-label">主题</span></button>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="hero-copy">
+        <p class="eyebrow">DSH Web GUI Plugin</p>
+        <h1>把每天要做的事，留在你的 DSH 里。</h1>
+        <p class="lead">一个类似滴答清单的轻量本机任务计划。Host 权威持久化、多标签页同步、运行期间提醒，还能让 Agent 用自然语言替你管理任务。</p>
+        <div class="hero-actions"><a class="primary" href="https://github.com/linxin666/dsh-task-planner">查看 GitHub</a><a class="secondary" href="#install">快速安装</a></div>
+        <div class="install-pill" id="install"><code>dsh plugin --profile web add dsh-task-planner@latest</code><button type="button" data-copy aria-label="复制安装命令">复制</button></div>
+        <p class="micro">Apache-2.0 · 本机数据 · 默认无统计脚本</p>
+      </div>
+      <div class="hero-visual"><img src="assets/gui-light.png" alt="dsh-task-planner 在 DSH 默认浅色主题中的界面" width="1280" height="720"><span class="float-card"><strong>Host 权威</strong><small>原子写入 · SSE 同步</small></span></div>
+    </section>
+
+    <section class="trust section" aria-label="核心特点"><span>不修改 DSH 源码</span><span>官方 Client Slot</span><span>CSS 语义变量</span><span>本机默认存储</span><span>无默认追踪</span></section>
+
+    <section class="section" id="features">
+      <div class="section-head"><p class="eyebrow">Daily flow</p><h2>日常任务该有的能力，保持轻量。</h2><p>从快速记下一件事，到按日期推进、完成、恢复与短暂撤销，都走同一份 Host 权威账本。</p></div>
+      <div class="feature-grid">
+        <article><span>01</span><h3>六个清晰视图</h3><p>今天、收件箱、未来、已完成、工作、个人；今天同时收纳过期任务并按时间排序。</p></article>
+        <article><span>02</span><h3>完整任务细节</h3><p>标题、备注、清单、优先级、日期、时间、提醒，以及每天、每周、每月重复。</p></article>
+        <article><span>03</span><h3>安全撤销</h3><p>完成、删除和改期后提供短暂撤销；遇到另一个标签页的冲突时拒绝覆盖。</p></article>
+        <article><span>04</span><h3>运行期间提醒</h3><p>支持错过提醒与稍后提醒；不承诺 DSH 关闭或系统休眠时仍能准时通知。</p></article>
+        <article><span>05</span><h3>Host 可靠存储</h3><p>revision、幂等请求、SSE、原子 rename、损坏文件隔离与恢复前备份。</p></article>
+        <article><span>06</span><h3>键盘与无障碍</h3><p>N 快速新建、/ 搜索、Enter 打开、Space 完成，并提供焦点、状态与语义区域。</p></article>
+      </div>
+    </section>
+
+    <section class="ai-section section" id="ai">
+      <div><p class="eyebrow">Agent tools</p><h2>直接告诉 Agent，你想怎么安排。</h2><p>创建、查询、修改和完成都调用与 UI 相同的本机 Host 服务。同名任务必须先消歧，删除必须明确确认。</p></div>
+      <div class="chat" aria-label="AI 自然语言管理任务示例"><p class="user">明天上午十点提醒我检查发布说明，提前十分钟。</p><p class="agent"><span>✓</span>已创建“检查发布说明”，安排在明天 10:00，提前 10 分钟提醒。</p><p class="user">完成“每周复盘”。</p><p class="agent"><span>i</span>找到两条同名任务。我列出了 task id，请选择要完成的一条。</p></div>
+    </section>
+
+    <section class="section skins">
+      <div class="section-head"><p class="eyebrow">One color system</p><h2>浅色、深色、社区皮肤，始终与 DSH 同色。</h2><p>正式插件不复制原型固定颜色，不写独立明暗主题，也不修改全局主题 token。</p></div>
+      <div class="skin-grid"><figure><img src="assets/gui-light.png" alt="默认浅色皮肤效果"><figcaption>默认浅色</figcaption></figure><figure><img src="assets/gui-dark.png" alt="默认深色皮肤效果"><figcaption>默认深色</figcaption></figure><figure><img src="assets/gui-community.png" alt="Skin Center 社区皮肤效果"><figcaption>社区皮肤</figcaption></figure></div>
+    </section>
+
+    <section class="privacy section" id="privacy"><div><p class="eyebrow">Local by default</p><h2>任务默认留在本机。</h2></div><div><p>任务写入 <code>$DSH_HOME/task-planner/tasks-v1.json</code>。没有默认云同步、分析、遥测或追踪。JSON 导出由你自行保管。</p><a href="https://github.com/linxin666/dsh-task-planner/blob/main/PRIVACY.md">阅读完整隐私说明 →</a></div></section>
+
+    <section class="section roadmap"><div class="section-head"><p class="eyebrow">Roadmap</p><h2>接下来</h2></div><ol><li><span>Now</span><strong>轻量日常任务</strong><p>六视图、提醒、重复、Agent 工具、备份与多皮肤。</p></li><li><span>Next</span><strong>更灵活的日期输入</strong><p>自然语言日期预览、批量改期和更丰富的重复规则。</p></li><li><span>Later</span><strong>可选同步接口</strong><p>保持本机默认，在明确授权下提供可插拔同步适配器。</p></li></ol></section>
+
+    <section class="section faq" id="faq"><div class="section-head"><p class="eyebrow">FAQ</p><h2>常见问题</h2></div><details><summary>会修改 DSH 源码吗？</summary><p>不会。插件通过 Cordis Bundle 与官方 Client Slot 接入。</p></details><details><summary>DSH 关闭后提醒还会准时出现吗？</summary><p>不会做这种承诺。提醒依赖 DSH Web GUI 与浏览器运行；恢复后可以在设定范围内显示错过提醒。</p></details><details><summary>数据会上传云端吗？</summary><p>默认不会。任务保存在本机，站点与插件都不默认接入统计或追踪脚本。</p></details><details><summary>为什么同名任务需要选择 id？</summary><p>这是 Agent 工具的安全约束，避免自然语言修改或删除错误任务。</p></details></section>
+  </main>
+
+  <footer><div><strong>dsh-task-planner</strong><p>Lightweight local task planning for DSH.</p></div><nav aria-label="项目链接"><a href="https://github.com/linxin666/dsh-task-planner">GitHub</a><a href="https://www.npmjs.com/package/dsh-task-planner">NPM</a><a href="https://github.com/linxin666/dsh-task-planner/issues">Issues</a><a href="https://github.com/linxin666/dsh-task-planner/blob/main/LICENSE">Apache-2.0</a></nav></footer>
+  <script src="app.js"></script>
+</body>
+</html>

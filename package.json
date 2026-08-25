@@ -1,0 +1,111 @@
+{
+  "name": "dsh-task-planner",
+  "version": "0.1.0",
+  "description": "Host-authoritative daily task planner for the DSH Web GUI, mounted through a Cordis bundle and official Client Slots.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.js.map",
+    "lib/**/*.d.ts",
+    "lib/**/*.d.ts.map",
+    "src",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "PRIVACY.md",
+    "docs/assets/*.png",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && tsdown",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check:styles": "node scripts/check-plugin-css.mjs",
+    "check:privacy": "node scripts/check-public-files.mjs",
+    "check:docs": "node scripts/check-docs.mjs",
+    "site:build": "node scripts/build-site.mjs",
+    "check": "pnpm typecheck && pnpm test && pnpm check:styles && pnpm check:privacy && pnpm check:docs && pnpm build"
+  },
+  "engines": {
+    "node": "^22.19 || >=24"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "cordis",
+    "task-manager",
+    "todo"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linxin666/dsh-task-planner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/linxin666/dsh-task-planner/issues"
+  },
+  "homepage": "https://linxin666.github.io/dsh-task-planner/",
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-host-webserver": "^0.1.1-rc.1",
+    "@deepseek-ai/dsh-settings": "^0.1.1-rc.1",
+    "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.1",
+    "@deepseek-ai/dsh-tools": "^0.1.1-rc.1",
+    "react": "^18.2.0"
+  },
+  "dependencies": {
+    "schemastery": "^3.18.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-client-locale": "^0.1.1-rc.1",
+    "@deepseek-ai/dsh-client-runtime": "^0.1.1-rc.1",
+    "@deepseek-ai/dsh-client-ui-settings": "^0.1.1-rc.1",
+    "@deepseek-ai/dsh-client-ui-slots": "^0.1.1-rc.1",
+    "@deepseek-ai/dsh-host-webserver": "^0.1.1-rc.1",
+    "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+    "@deepseek-ai/dsh-settings": "^0.1.1-rc.1",
+    "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.1",
+    "@deepseek-ai/dsh-tools": "^0.1.1-rc.1",
+    "@types/node": "^22.20.0",
+    "@types/react": "~18.3.1",
+    "@types/react-dom": "^18.3.5",
+    "jsdom": "^25.0.0",
+    "lightningcss": "^1.30.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsdown": "0.22.2",
+    "typescript": "~5.7.2",
+    "vitest": "^3.0.0"
+  },
+  "packageManager": "pnpm@10.15.0"
+}
