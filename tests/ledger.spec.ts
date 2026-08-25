@@ -15,6 +15,26 @@ const options = { timeZone: 'UTC', missedReminderHours: 24 }
 afterEach(() => { for (const dir of dirs.splice(0)) rmSync(dir, { recursive: true, force: true }) })
 
 describe('Host task ledger', () => {
+  it('migrates the legacy versioned filename without losing task data', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'dsh-task-planner-migration-'))
+    dirs.push(dir)
+    const legacy = join(dir, 'tasks-v1.json')
+    writeFileSync(legacy, JSON.stringify({
+      schemaVersion: 1,
+      revision: 4,
+      tasks: [{ id: 'legacy-task', title: '保留旧任务', status: 'open', createdAt: 1000, updatedAt: 1000 }],
+      timeZone: 'local',
+      updatedAt: 1000,
+      recentRequests: [],
+    }), 'utf8')
+
+    const store = new PlannerLedger(dir, () => 2000)
+
+    expect(store.file).toBe(join(dir, 'tasks.json'))
+    expect(existsSync(legacy)).toBe(false)
+    expect(store.state().tasks).toEqual([expect.objectContaining({ id: 'legacy-task', title: '保留旧任务' })])
+  })
+
   it('persists atomically, advances repeats, and undoes completion as one change', () => {
     const now = { value: Date.parse('2026-08-25T09:00:00Z') }
     const store = ledger(now)

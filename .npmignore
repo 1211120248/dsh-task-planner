@@ -7,3 +7,6 @@ vitest.config.ts
 tsconfig.json
 tsconfig.build.json
 tsdown.config.ts
+tasks.json
+tasks-v*.json
+*.backup.json

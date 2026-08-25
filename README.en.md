@@ -97,7 +97,7 @@ The settings card also requests browser notification permission, exports a JSON 
 
 ## Data and privacy
 
-Tasks are stored locally at `$DSH_HOME/task-planner/tasks-v1.json`. Writes use a temporary file, file sync, atomic rename, and directory sync where the platform permits it. A corrupt ledger is moved to a collision-resistant `.backup.json` name instead of being overwritten, and destructive restore creates a Host-side backup first.
+Tasks are stored locally at `$DSH_HOME/task-planner/tasks.json` and are explicitly excluded from Git and NPM publication. On upgrade, the legacy `tasks-v1.json` is atomically migrated to the new name without losing tasks. Writes use a temporary file, file sync, atomic rename, and directory sync where the platform permits it. A corrupt ledger is moved to a collision-resistant `.backup.json` name instead of being overwritten, and destructive restore creates a Host-side backup first.
 
 The browser is an asynchronous view of the Host ledger. Mutations carry a revision, and SSE prompts other tabs to fetch the new authoritative snapshot. The plugin does not enable cloud sync, analytics, telemetry, or tracking by default. See [PRIVACY.md](PRIVACY.md).
 

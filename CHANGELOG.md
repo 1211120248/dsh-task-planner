@@ -11,6 +11,7 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.
 - Enabled Agent task guidance by default so concrete future plans are recorded instead of acknowledged conversationally, and made creation results explicitly report the saved schedule, reminder state, and Task planner location.
 - Made dated tasks without a time state that no timed reminder exists and prompt the Agent to ask the user for a reminder time.
 - Cleaned the generated output directory before every build so removed modules cannot leak into published packages as stale declarations or source maps.
+- Renamed the local ledger to `tasks.json`, added an atomic migration from `tasks-v1.json`, and explicitly excluded task ledgers and backups from Git and NPM packages.
 
 ## [0.1.1] - 2026-08-25
 

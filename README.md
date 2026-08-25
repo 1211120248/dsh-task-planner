@@ -97,7 +97,7 @@ dsh plugin --profile web add link:$(pwd)
 
 ## 数据与隐私
 
-任务保存在本机 `$DSH_HOME/task-planner/tasks-v1.json`。写入使用临时文件、文件同步、原子 rename，并在平台允许时同步目录。损坏账本会移动到防碰撞的 `.backup.json` 文件而不是被覆盖；破坏性恢复前会先创建 Host 侧备份。
+任务保存在本机 `$DSH_HOME/task-planner/tasks.json`，并被 Git 与 NPM 发布规则明确排除。升级时会将旧的 `tasks-v1.json` 原子迁移为新名称，不会丢失任务。写入使用临时文件、文件同步、原子 rename，并在平台允许时同步目录。损坏账本会移动到防碰撞的 `.backup.json` 文件而不是被覆盖；破坏性恢复前会先创建 Host 侧备份。
 
 浏览器只是 Host 账本的异步视图。变更携带 revision，SSE 通知其他标签页重新读取新的权威快照。插件默认不启用云同步、分析、遥测或追踪。详见 [PRIVACY.md](PRIVACY.md)。
 

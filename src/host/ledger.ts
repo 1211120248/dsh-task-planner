@@ -11,6 +11,8 @@ const MAX_TASKS = 20_000
 const MAX_TITLE = 500
 const MAX_NOTE = 40_000
 const MAX_CHECKLIST = 500
+const LEDGER_FILE = 'tasks.json'
+const LEGACY_LEDGER_FILES = ['tasks-v1.json'] as const
 
 interface LedgerDocument extends PlannerState {
   recentRequests: Array<{ requestId: string; fingerprint: string }>
@@ -147,7 +149,15 @@ export class PlannerLedger {
     private readonly now: () => number = Date.now,
   ) {
     mkdirSync(dir, { recursive: true })
-    this.file = join(dir, 'tasks-v1.json')
+    this.file = join(dir, LEDGER_FILE)
+    if (!existsSync(this.file)) {
+      for (const legacyName of LEGACY_LEDGER_FILES) {
+        const legacy = join(dir, legacyName)
+        if (!existsSync(legacy)) continue
+        renameSync(legacy, this.file)
+        break
+      }
+    }
     this.document = this.load()
     for (const request of this.document.recentRequests) this.requests.set(request.requestId, request.fingerprint)
     this.commit(false)

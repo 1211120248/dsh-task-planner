@@ -1,4 +1,4 @@
 # Bilingual-pair consistency record. Re-run `git hash-object README.md
 # README.en.md` after updating both authoritative language versions.
-README.md: 5d821a6bc71c465484ead7d20df81a12df52d66a
-README.en.md: dfc41d2bb25c9ad8c34430f24f0dc651cbb1536e
+README.md: 6bac76ef1f80f93b3ce28ade784d01fffb5f8326
+README.en.md: 3e552730279639c9c657f76532a276af315ef522
