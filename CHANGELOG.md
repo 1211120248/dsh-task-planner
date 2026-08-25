@@ -4,6 +4,14 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-08-25
+
+### Fixed
+
+- Enabled Agent task guidance by default so concrete future plans are recorded instead of acknowledged conversationally, and made creation results explicitly report the saved schedule, reminder state, and Task planner location.
+- Made dated tasks without a time state that no timed reminder exists and prompt the Agent to ask the user for a reminder time.
+- Cleaned the generated output directory before every build so removed modules cannot leak into published packages as stale declarations or source maps.
+
 ## [0.1.1] - 2026-08-25
 
 ### Changed
@@ -31,6 +39,7 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.
 - Constrained Agent task tools with title disambiguation and confirmed deletion.
 - Bilingual documentation, privacy statement, CI, NPM release, and GitHub Pages project site.
 
-[Unreleased]: https://github.com/1211120248/dsh-task-planner/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/1211120248/dsh-task-planner/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/1211120248/dsh-task-planner/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/1211120248/dsh-task-planner/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/1211120248/dsh-task-planner/releases/tag/v0.1.0

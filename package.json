@@ -1,6 +1,6 @@
 {
   "name": "dsh-task-planner",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Host-authoritative daily task planner for the DSH Web GUI, mounted through a Cordis bundle and official Client Slots.",
   "type": "module",
   "main": "lib/index.js",
@@ -45,7 +45,7 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && tsdown",
+    "build": "node scripts/clean-build.mjs && tsc -p tsconfig.build.json && tsdown",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",

@@ -6,6 +6,7 @@ coverage/
 .DS_Store
 *.tmp
 *.backup.json
+*.tgz
 .env
 .env.*
 !.env.example

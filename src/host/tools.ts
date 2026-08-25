@@ -16,6 +16,21 @@ function renderTasks(tasks: readonly Task[]): string {
   ].join('\n')
 }
 
+function renderSchedule(task: Task): string {
+  if (task.scheduledDate === undefined) return '未安排日期和时间'
+  if (task.scheduledTime === undefined) return `${task.scheduledDate}（未设置具体时间）`
+  return `${task.scheduledDate} ${task.scheduledTime}`
+}
+
+function renderReminder(task: Task): string {
+  if (task.reminder?.enabled === true) {
+    return task.reminder.minutesBefore === 0 ? '准时提醒' : `提前 ${task.reminder.minutesBefore} 分钟提醒`
+  }
+  if (task.scheduledDate !== undefined && task.scheduledTime === undefined) return '未设置；需要补充具体时间'
+  if (task.scheduledDate === undefined) return '未设置；需要补充日期和时间'
+  return '未设置'
+}
+
 function reference(service: TaskPlannerService, args: { taskId?: string; title?: string }): Task {
   return service.resolveTask(args)
 }
@@ -56,7 +71,7 @@ export function taskPlannerTools(service: TaskPlannerService) {
     }),
     defineTool({
       name: 'task_planner_create',
-      description: 'Create one local daily task. Dates use YYYY-MM-DD and times use 24-hour HH:mm. A reminder requires both date and time.',
+      description: 'Create one local daily task when the user asks to record, arrange, or remember something, or states a concrete actionable future personal plan. Do not use for hypotheticals or ordinary questions. Dates use YYYY-MM-DD and times use 24-hour HH:mm. A reminder requires both date and time.',
       parameters: {
         title: { type: 'string', required: true },
         note: { type: 'string' },
@@ -81,7 +96,19 @@ export function taskPlannerTools(service: TaskPlannerService) {
         }
         const result = service.apply(crypto.randomUUID(), service.state().revision, { kind: 'create', input })
         const task = result.tasks.at(-1)!
-        return { text: `Created task ${task.id}: ${task.title}` }
+        return {
+          text: [
+            '任务已记录。',
+            `- ID：${task.id}`,
+            `- 标题：${task.title}`,
+            `- 计划：${renderSchedule(task)}`,
+            `- 提醒：${renderReminder(task)}`,
+            '- 查看位置：任务计划',
+            task.scheduledDate !== undefined && task.scheduledTime === undefined
+              ? '请明确告诉用户尚未设置定时提醒，并询问具体提醒时间。'
+              : '请向用户明确确认以上记录结果。',
+          ].join('\n'),
+        }
       },
     }),
     defineTool({

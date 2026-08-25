@@ -35,6 +35,11 @@
 ```text
 用户：明天 10 点提醒我检查发布说明，提前 10 分钟。
 Agent：task_planner_create({ title: "检查发布说明", scheduledDate: "2026-08-26", scheduledTime: "10:00", reminderMinutesBefore: 10 })
+Agent：已记录“检查发布说明”，计划时间为 2026-08-26 10:00，将提前 10 分钟提醒。可在“任务计划”中查看。
+
+用户：明天去北京。
+Agent：task_planner_create({ title: "去北京", scheduledDate: "2026-08-26" })
+Agent：已记录“去北京”，日期为 2026-08-26。尚未设置具体时间，因此还没有定时提醒；你希望几点提醒？
 
 用户：完成“每周复盘”。
 Agent：task_planner_query({ search: "每周复盘", status: "open" })
@@ -76,7 +81,7 @@ dsh plugin --profile web add link:$(pwd)
 | `notificationsEnabled` | `true` | DSH Web GUI 运行期间检查并领取提醒。 |
 | `timeZone` | `local` | 按 Host 本地时区或选定 IANA 时区解释任务日期与时间。 |
 | `agentToolsEnabled` | `true` | 注册受约束的 `task_planner_*` 工具。 |
-| `announceToAgent` | `false` | 按需向 Agent 系统提示加入能力说明。 |
+| `announceToAgent` | `true` | 向 Agent 说明任务记录规则，并要求创建后明确回显日期、时间与提醒状态。 |
 | `missedReminderHours` | `24` | 暂停或恢复后的最大错过提醒回溯时间。 |
 | `snoozeMinutes` | `10` | “稍后提醒”使用的延迟时间。 |
 

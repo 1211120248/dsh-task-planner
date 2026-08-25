@@ -38,4 +38,13 @@ describe('plugin contracts', () => {
     expect(locales).toContain('关闭 DSH、系统休眠或浏览器冻结时不保证准时通知')
     expect(locales).toContain('not guaranteed while DSH is closed, the system sleeps, or the browser is suspended')
   })
+
+  it('announces task recording behavior to Agents by default', () => {
+    const host = readFileSync('src/index.ts', 'utf8')
+    expect(host).toContain('announceToAgent: z.boolean().default(true)')
+    expect(host).toContain("announceToAgent: config.announceToAgent ?? true")
+    expect(host).toContain('明天去北京')
+    expect(host).toContain('不能只回复“好的”')
+    expect(host).toContain('尚未设置定时提醒并询问几点提醒')
+  })
 })

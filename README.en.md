@@ -35,6 +35,11 @@ With Agent tools enabled, natural-language requests map to the same Host service
 ```text
 User: Tomorrow at 10:00, remind me 10 minutes early to review the release notes.
 Agent: task_planner_create({ title: "Review release notes", scheduledDate: "2026-08-26", scheduledTime: "10:00", reminderMinutesBefore: 10 })
+Agent: Recorded “Review release notes” for 2026-08-26 10:00 with a reminder 10 minutes early. You can find it in Task planner.
+
+User: I’m going to Beijing tomorrow.
+Agent: task_planner_create({ title: "Go to Beijing", scheduledDate: "2026-08-26" })
+Agent: Recorded “Go to Beijing” for 2026-08-26. There is no timed reminder yet because no time was provided. What time should I remind you?
 
 User: Complete “Weekly review”.
 Agent: task_planner_query({ search: "Weekly review", status: "open" })
@@ -76,7 +81,7 @@ Open **DSH Settings → Plugins → Task planner**.
 | `notificationsEnabled` | `true` | Checks and claims reminders while the DSH Web GUI is running. |
 | `timeZone` | `local` | Interprets task dates and times in the Host local zone or a selected IANA zone. |
 | `agentToolsEnabled` | `true` | Registers the constrained `task_planner_*` tools. |
-| `announceToAgent` | `false` | Opt-in capability guidance in Agent system prompts. |
+| `announceToAgent` | `true` | Guides Agents to recognize concrete future plans and explicitly confirm the saved schedule and reminder state. |
 | `missedReminderHours` | `24` | Maximum reminder lookback after a pause or resume. |
 | `snoozeMinutes` | `10` | Delay used by Remind later. |
 
