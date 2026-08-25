@@ -22,7 +22,7 @@ Use Node.js `^22.19 || >=24`. The project depends only on published `@deepseek-a
 
 ## Reporting issues
 
-Use the [issue chooser](https://github.com/linxin666/dsh-task-planner/issues/new/choose). Do not include task exports, local paths, credentials, or private screenshots in public reports.
+Use the [issue chooser](https://github.com/1211120248/dsh-task-planner/issues/new/choose). Do not include task exports, local paths, credentials, or private screenshots in public reports.
 
 ## 中文说明
 

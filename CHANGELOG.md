@@ -27,5 +27,5 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.
 - Constrained Agent task tools with title disambiguation and confirmed deletion.
 - Bilingual documentation, privacy statement, CI, NPM release, and GitHub Pages project site.
 
-[Unreleased]: https://github.com/linxin666/dsh-task-planner/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/linxin666/dsh-task-planner/releases/tag/v0.1.0
+[Unreleased]: https://github.com/1211120248/dsh-task-planner/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/1211120248/dsh-task-planner/releases/tag/v0.1.0

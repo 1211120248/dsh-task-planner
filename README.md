@@ -1,133 +1,133 @@
 # dsh-task-planner
 
-English | [中文](README.zh.md)
+中文 | [English](README.en.md)
 
-A lightweight daily task planner for the DeepSeek Harness (DSH) Web GUI. It mounts as an independent Cordis bundle through official Client Slots, keeps the Host authoritative, and never modifies DSH source code.
+一个面向 DeepSeek Harness (DSH) Web GUI 的轻量日常任务插件。它作为独立 Cordis Bundle，通过官方 Client Slot 接入，以 Host 为权威数据源，并且不修改 DSH 源码。
 
-[Project site](https://linxin666.github.io/dsh-task-planner/) | [NPM](https://www.npmjs.com/package/dsh-task-planner) | [Issues](https://github.com/linxin666/dsh-task-planner/issues) | [Privacy](PRIVACY.md)
+[项目主页](https://1211120248.github.io/dsh-task-planner/) | [NPM](https://www.npmjs.com/package/dsh-task-planner) | [问题反馈](https://github.com/1211120248/dsh-task-planner/issues) | [隐私说明](PRIVACY.md)
 
-## Screenshots
+## 界面截图
 
-![dsh-task-planner in the default light theme](docs/assets/gui-light.png)
+![DSH 默认浅色主题中的 dsh-task-planner](docs/assets/gui-light.png)
 
-| Default dark | Skin Center community skin |
+| 默认深色 | Skin Center 社区皮肤 |
 | --- | --- |
-| ![Default dark theme](docs/assets/gui-dark.png) | ![Community skin](docs/assets/gui-community.png) |
+| ![默认深色主题](docs/assets/gui-dark.png) | ![社区皮肤](docs/assets/gui-community.png) |
 
-The screenshots are captured in the real DSH Web GUI. Component CSS contains no fixed hexadecimal, RGB, or HSL colors; every plugin color comes from official `--dsw-*` semantic variables.
+截图来自真实 DSH Web GUI。组件 CSS 不包含固定十六进制、RGB 或 HSL 颜色；插件的全部颜色均来自官方 `--dsw-*` 语义变量。
 
-## Features
+## 功能
 
-- Today, Inbox, Upcoming, Completed, Work, and Personal views, with search and schedule-first sorting.
-- Fast create, detail editing, delete, complete, restore, and short-lived undo for complete, delete, and reschedule actions.
-- Titles, notes, checklist items, priority, date, time, runtime reminders, and daily, weekly, or monthly repeats.
-- Today combines overdue and due-today work while keeping overdue items visibly separated.
-- Runtime, missed, and remind-later notifications use a Host-side claim so multiple tabs do not all notify the same task.
-- Host-authoritative JSON ledger with revision fencing, request idempotency, SSE synchronization, atomic writes, corrupt-file quarantine, and backup-before-restore.
-- Constrained Agent tools for create, query, update, complete, restore, and delete. Same-name tasks require disambiguation and delete requires explicit confirmation.
-- Responsive desktop/mobile layouts, keyboard shortcuts, loading/empty/error states, focus-visible controls, semantic landmarks, and live status regions.
-- Skin-safe CSS Modules, `currentColor` SVG icons, `data-dsh-plugin="task-planner"`, and stable `data-dsh-part` hooks.
+- 提供今天、收件箱、未来、已完成、工作和个人视图，并支持搜索和按安排时间优先排序。
+- 支持快速创建、详情编辑、删除、完成、恢复，以及完成、删除、改期后的短暂撤销。
+- 支持标题、备注、清单、优先级、日期、时间、运行期间提醒和每天、每周、每月重复。
+- 今天视图同时展示过期任务与今日任务，并将过期任务单独分组。
+- 运行期间提醒、错过提醒与稍后提醒使用 Host 领取机制，避免多个标签页重复通知同一任务。
+- Host 权威 JSON 账本具备 revision 栅栏、请求幂等、SSE 同步、原子写入、损坏文件隔离和恢复前备份。
+- 提供受约束的 Agent 创建、查询、修改、完成、恢复和删除工具；同名任务必须消歧，删除必须显式确认。
+- 支持桌面端与移动端响应式布局、键盘操作、加载/空/错误状态、可见焦点、语义区域和实时状态播报。
+- 使用皮肤安全的 CSS Modules、`currentColor` SVG、`data-dsh-plugin="task-planner"` 和稳定 `data-dsh-part` 钩子。
 
-## AI task management
+## AI 自然语言管理
 
-With Agent tools enabled, natural-language requests map to the same Host service used by the UI:
+启用 Agent 工具后，自然语言请求会调用与 UI 相同的 Host 服务：
 
 ```text
-User: Tomorrow at 10:00, remind me 10 minutes early to review the release notes.
-Agent: task_planner_create({ title: "Review release notes", scheduledDate: "2026-08-26", scheduledTime: "10:00", reminderMinutesBefore: 10 })
+用户：明天 10 点提醒我检查发布说明，提前 10 分钟。
+Agent：task_planner_create({ title: "检查发布说明", scheduledDate: "2026-08-26", scheduledTime: "10:00", reminderMinutesBefore: 10 })
 
-User: Complete “Weekly review”.
-Agent: task_planner_query({ search: "Weekly review", status: "open" })
-Agent: I found two matching tasks. Which task id should I complete?
+用户：完成“每周复盘”。
+Agent：task_planner_query({ search: "每周复盘", status: "open" })
+Agent：找到两条同名任务，请选择要完成的 task id。
 
-User: Delete task 7d2…, yes, confirm it.
-Agent: task_planner_delete({ taskId: "7d2…", confirm: true })
+用户：删除任务 7d2…，是的，确认删除。
+Agent：task_planner_delete({ taskId: "7d2…", confirm: true })
 ```
 
-Agent tools never guess between same-name tasks. `task_planner_delete` refuses to delete unless `confirm: true` follows explicit user confirmation.
+Agent 工具不会在同名任务之间猜测。只有用户明确确认后传入 `confirm: true`，`task_planner_delete` 才会执行删除。
 
-## Install
+## 安装
 
-Requires Node.js `^22.19 || >=24` and a DSH Web profile.
+需要 Node.js `^22.19 || >=24` 和一个 DSH Web profile。
 
 ```sh
 dsh plugin --profile web add dsh-task-planner@latest
 ```
 
-Restart `dsh web`, then use **Task planner** in the primary sidebar navigation above Task Board. The sidebar stays in place while the main content switches to the planner. For local development:
+重启 `dsh web`，随后从侧边栏主导航中、任务看板上方的“任务计划”入口打开。点击后左侧导航保持不变，右侧主内容切换为任务计划。用于本地开发时：
 
 ```sh
-git clone https://github.com/linxin666/dsh-task-planner.git
+git clone https://github.com/1211120248/dsh-task-planner.git
 cd dsh-task-planner
 pnpm install
 pnpm build
 dsh plugin --profile web add link:$(pwd)
 ```
 
-The package declares its Cordis bundle in `cordis.patch.yml`; no DSH checkout or source patch is required.
+包通过 `cordis.patch.yml` 声明 Cordis Bundle；不需要 DSH 源码 checkout 或源码补丁。
 
-## Configuration
+## 配置
 
-Open **DSH Settings → Plugins → Task planner**.
+打开 **DSH 设置 → 插件 → 任务计划**。
 
-| Key | Default | Behavior |
+| 键 | 默认值 | 行为 |
 | --- | --- | --- |
-| `enabled` | `true` | Shows the primary navigation entry and planner content page. |
-| `notificationsEnabled` | `true` | Checks and claims reminders while the DSH Web GUI is running. |
-| `timeZone` | `local` | Interprets task dates and times in the Host local zone or a selected IANA zone. |
-| `agentToolsEnabled` | `true` | Registers the constrained `task_planner_*` tools. |
-| `announceToAgent` | `false` | Opt-in capability guidance in Agent system prompts. |
-| `missedReminderHours` | `24` | Maximum reminder lookback after a pause or resume. |
-| `snoozeMinutes` | `10` | Delay used by Remind later. |
+| `enabled` | `true` | 显示主导航入口与右侧任务计划页面。 |
+| `notificationsEnabled` | `true` | DSH Web GUI 运行期间检查并领取提醒。 |
+| `timeZone` | `local` | 按 Host 本地时区或选定 IANA 时区解释任务日期与时间。 |
+| `agentToolsEnabled` | `true` | 注册受约束的 `task_planner_*` 工具。 |
+| `announceToAgent` | `false` | 按需向 Agent 系统提示加入能力说明。 |
+| `missedReminderHours` | `24` | 暂停或恢复后的最大错过提醒回溯时间。 |
+| `snoozeMinutes` | `10` | “稍后提醒”使用的延迟时间。 |
 
-The settings card also requests browser notification permission, exports a JSON backup, and restores a backup after confirmation.
+设置卡还可以请求浏览器通知权限、导出 JSON 备份，并在确认后恢复备份。
 
-## Keyboard controls
+## 键盘操作
 
-- `N` focuses quick create when no text field is active.
-- `/` focuses search when no text field is active.
-- `Enter` opens the focused task.
-- `Space` completes or restores the focused task.
-- `Escape` closes the planner.
+- 没有文本框处于编辑状态时，`N` 聚焦快速创建。
+- 没有文本框处于编辑状态时，`/` 聚焦搜索。
+- `Enter` 打开当前聚焦任务。
+- `Space` 完成或恢复当前聚焦任务。
+- `Escape` 关闭任务计划。
 
-## Data and privacy
+## 数据与隐私
 
-Tasks are stored locally at `$DSH_HOME/task-planner/tasks-v1.json`. Writes use a temporary file, file sync, atomic rename, and directory sync where the platform permits it. A corrupt ledger is moved to a collision-resistant `.backup.json` name instead of being overwritten, and destructive restore creates a Host-side backup first.
+任务保存在本机 `$DSH_HOME/task-planner/tasks-v1.json`。写入使用临时文件、文件同步、原子 rename，并在平台允许时同步目录。损坏账本会移动到防碰撞的 `.backup.json` 文件而不是被覆盖；破坏性恢复前会先创建 Host 侧备份。
 
-The browser is an asynchronous view of the Host ledger. Mutations carry a revision, and SSE prompts other tabs to fetch the new authoritative snapshot. The plugin does not enable cloud sync, analytics, telemetry, or tracking by default. See [PRIVACY.md](PRIVACY.md).
+浏览器只是 Host 账本的异步视图。变更携带 revision，SSE 通知其他标签页重新读取新的权威快照。插件默认不启用云同步、分析、遥测或追踪。详见 [PRIVACY.md](PRIVACY.md)。
 
-## Reminder boundary
+## 提醒边界
 
-Reminders work only while the DSH Web GUI is running and the browser can schedule JavaScript. After a short suspension, the plugin can display a missed reminder within the configured lookback and supports Remind later. It does not promise on-time notifications while DSH is closed, the computer is asleep, the browser is suspended, or the operating system suppresses notifications.
+提醒只在 DSH Web GUI 正在运行且浏览器可以调度 JavaScript 时工作。短暂暂停后，插件可在配置的回溯范围内展示错过提醒，并支持稍后提醒。DSH 关闭、电脑休眠、浏览器挂起或操作系统抑制通知时，插件不承诺准时通知。
 
-## Architecture and security
+## 架构与安全
 
-- `src/index.ts` is the Host half: settings, routes, Agent tools, and optional Agent guidance.
-- `src/host/ledger.ts` owns the only durable task state and validates every imported or mutated task.
-- `src/client/index.ts` registers `sidebar.footer.action`, `shell.overlay`, and the settings card through the official Slot Registry. Current DSH releases do not expose multi-occupant primary-navigation or main-content page slots, so the first two remain lifecycle anchors while their React output is portalled above Task Board and into the main content column without patching DSH source.
-- Browser requests are loopback and same-origin fenced, JSON-only for mutations, size-limited, and expressed as a closed discriminated action union.
-- Undo tokens expire after eight seconds and fail on conflicting changes instead of overwriting another tab.
+- `src/index.ts` 是 Host 半区，负责设置、路由、Agent 工具和可选 Agent 公告。
+- `src/host/ledger.ts` 持有唯一的持久任务状态，并校验每个导入或变更后的任务。
+- `src/client/index.ts` 通过官方 Slot Registry 注册 `sidebar.footer.action`、`shell.overlay` 与插件设置卡；当前 DSH 尚未提供多占用的主导航与右侧页面 Slot，因此前两者作为生命周期锚点，将入口投送到任务看板上方，并将页面投送到右侧主内容容器，不修改 DSH 源码。
+- 浏览器请求受 loopback 与同源栅栏保护，变更只接受 JSON、有大小限制，并使用封闭的判别 action 联合。
+- 撤销令牌在八秒后过期，遇到冲突变更会失败，不会覆盖另一个标签页的修改。
 
-## Build and test
+## 构建与测试
 
 ```sh
 pnpm install
 pnpm check
 ```
 
-`pnpm check` runs typecheck, Vitest, skin-color enforcement, public-file privacy checks, documentation checks, and the production build. GitHub Actions runs the same gate on pushes and pull requests.
+`pnpm check` 会运行类型检查、Vitest、皮肤颜色门禁、公开文件隐私检查、文档检查与生产构建。GitHub Actions 会在 push 与 pull request 上运行相同门禁。
 
-## Known limitations
+## 已知限制
 
-- Reminders are runtime assistance, not an operating-system background scheduler or wake timer.
-- Simple repeats support daily, weekly, and monthly intervals; advanced recurrence rules are not implemented.
-- Restoring a previously completed recurring occurrence does not automatically remove its already-created next occurrence.
-- The plugin provides local JSON export/restore but no default cloud synchronization or cross-device merge service.
+- 提醒属于运行期间辅助能力，不是操作系统后台调度器或唤醒定时器。
+- 简单重复支持每天、每周和每月；暂不实现高级 recurrence 规则。
+- 恢复一个已经完成的重复任务 occurrence 时，不会自动删除先前已创建的下一 occurrence。
+- 插件提供本机 JSON 导出与恢复，但不提供默认云同步或跨设备合并服务。
 
-## Contributing and support
+## 贡献与反馈
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md), use Conventional Commits, and open a [bug report or feature request](https://github.com/linxin666/dsh-task-planner/issues/new/choose). Security-sensitive reports should follow [SECURITY.md](SECURITY.md).
+请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)，使用 Conventional Commits，并提交 [Bug 或功能建议](https://github.com/1211120248/dsh-task-planner/issues/new/choose)。安全相关问题请遵循 [SECURITY.md](SECURITY.md)。
 
-## License
+## 许可证
 
-Licensed under the [Apache License 2.0](LICENSE).
+使用 [Apache License 2.0](LICENSE) 开源。

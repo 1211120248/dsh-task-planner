@@ -25,7 +25,7 @@
     "src",
     "cordis.patch.yml",
     "README.md",
-    "README.zh.md",
+    "README.en.md",
     "PRIVACY.md",
     "docs/assets/*.png",
     "LICENSE",
@@ -68,12 +68,12 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/linxin666/dsh-task-planner.git"
+    "url": "git+https://github.com/1211120248/dsh-task-planner.git"
   },
   "bugs": {
-    "url": "https://github.com/linxin666/dsh-task-planner/issues"
+    "url": "https://github.com/1211120248/dsh-task-planner/issues"
   },
-  "homepage": "https://linxin666.github.io/dsh-task-planner/",
+  "homepage": "https://1211120248.github.io/dsh-task-planner/",
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
     "@deepseek-ai/dsh-host-webserver": "^0.1.1-rc.1",
